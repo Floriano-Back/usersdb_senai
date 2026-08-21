@@ -31,6 +31,40 @@ app.get("/users", async (req,res) => {
    
 });
 
+app.post("/users", async (req,res) =>{
+    try{
+        const {nome, sexo} = req.body;        
+        const [result] = await pool.query("INSERT INTO users (nome, sexo) VALUES (?, ?);", [nome, sexo]);        
+        res.status(201).json({status: "Usuario cadastro com sucesso"});
+
+    }catch(error){
+        console.error("erro no cadastro do usuario:", error);
+        res.status(500).json({erro: "Não foi possivel cadastrar esse usuario"});
+    }
+});
+
+app.delete("/users/:id", async (req,res) =>{
+    try{
+        const {id} = req.params;
+        const [result] = await pool.query("DELETE FROM users WHERE id = ?;",[id]);
+        res.status(200).json({msg: "Usuario deletado com sucesso"});
+
+    }catch(error){
+        console.error("Erro ao deletar um usuario:", error);
+        res.status(500).json({erro: "Não foi possivel deletar o usuario."});
+}});
+
+app.patch("/users/:id", async (req,res) =>{
+    try{
+        const {id} = req.params;
+        const {nome,sexo} = req.body;
+        const [result] = await pool.query("UPDATE users SET (nome, sexo) WHERE id = ?", [id,nome,sexo]);
+
+    }catch(error){
+        console.error("Erro ao atualizar um usuario:", error);
+        res.status(500).json({erro: "Não foi possivel atualizar o usuario."});
+}});
+
 app.listen(port, () => {
     console.log(`servidor hospedado na porta ${port}`)
 });
