@@ -58,7 +58,8 @@ app.patch("/users/:id", async (req,res) =>{
     try{
         const {id} = req.params;
         const {nome,sexo} = req.body;
-        const [result] = await pool.query("UPDATE users SET (nome, sexo) WHERE id = ?", [id,nome,sexo]);
+        const [result] = await pool.query("UPDATE users SET nome = ?, sexo = ? WHERE id = ?", [nome, sexo, id]);
+        res.status(200).json({msg: "Usuario Atualizado"});
 
     }catch(error){
         console.error("Erro ao atualizar um usuario:", error);
