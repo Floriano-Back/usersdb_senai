@@ -25,7 +25,6 @@ app.get("/users", async (req,res) => {
         res.json({result: rows});
 
     }catch(error){
-        console.error("erro ao buscar os usuarios:", error);
         res.status(500).json({error: "Erro ao buscar os usuarios"})
     }
    
@@ -38,7 +37,6 @@ app.post("/users", async (req,res) =>{
         res.status(201).json({status: "Usuario cadastro com sucesso"});
 
     }catch(error){
-        console.error("erro no cadastro do usuario:", error);
         res.status(500).json({erro: "Não foi possivel cadastrar esse usuario"});
     }
 });
@@ -50,7 +48,6 @@ app.delete("/users/:id", async (req,res) =>{
         res.status(200).json({msg: "Usuario deletado com sucesso"});
 
     }catch(error){
-        console.error("Erro ao deletar um usuario:", error);
         res.status(500).json({erro: "Não foi possivel deletar o usuario."});
 }});
 
@@ -62,7 +59,6 @@ app.patch("/users/:id", async (req,res) =>{
         res.status(200).json({msg: "Usuario Atualizado"});
 
     }catch(error){
-        console.error("Erro ao atualizar um usuario:", error);
         res.status(500).json({erro: "Não foi possivel atualizar o usuario."});
 }});
 
